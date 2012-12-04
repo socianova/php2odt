@@ -8,7 +8,7 @@
  */
 
  /*
- * @copyright  GPL License 2012 - Mehboub Sophien - sociaNova (http://www.socianova.com)
+ * @copyright  GPL License 2012 - Mehboub Sophien - Badreddine zeghiche - sociaNova (http://www.socianova.com)
  * @license    http://www.gnu.org/licenses/gpl-3.0.fr.html  GPL License
  * @version 1.0
  */
@@ -84,7 +84,7 @@ class Segment {
         $this->_children[] = $this->name;
     }
 
-    public function copie($nb) {
+    private function copie($nb) {
         $value = new DOMDocument;
         $value->loadXML($this->doc);
         $i = 1;
@@ -139,10 +139,6 @@ class Segment {
                 }
             }
         }
-        $this->odf->getDom_content()->loadXML($this->dom->saveXML());
-    }
-
-    public function mergeSegment() {
         $this->odf->getDom_content()->loadXML($this->dom->saveXML());
     }
 

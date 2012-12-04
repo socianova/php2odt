@@ -15,7 +15,7 @@ include_once('libPhp/Segment.php');
  */
 
  /*
- * @copyright  GPL License 2012 - Mehboub Sophien - sociaNova (http://www.socianova.com)
+ * @copyright  GPL License 2012 - Mehboub Sophien - Badreddine zeghiche - sociaNova (http://www.socianova.com)
  * @license    http://www.gnu.org/licenses/gpl-3.0.fr.html  GPL License
  * @version 1.0
  */
@@ -157,7 +157,7 @@ class php2Odt {
         }
     }
 
-    public function merge() {
+    private function merge() {
         $this->zip->addFromString('META-INF/manifest.xml', $this->dom_manifest->saveXML());
         $this->zip->addFromString('content.xml', $this->dom_content->saveXML());
         foreach ($this->images as $imageKey => $imageValue) {
