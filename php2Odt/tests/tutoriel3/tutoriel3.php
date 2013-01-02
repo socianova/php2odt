@@ -19,7 +19,7 @@ $t = array('var1',
 
 $odf = new php2Odt('tutoriel3.odt');
 
-$odf->setVar('valeur', 'titre');
+$odf->setVar('titre', 'valeur');
 
 $array = array('image' => array(
         'file' => './sociaNOVA.jpg',
@@ -36,11 +36,11 @@ $sous_sous_segment->setvar('textSous-Sous-Segment', 'varSeul');
 
 $sous_segment = $odf->setSegment('Sous-Segment');
  
-$sous_segment->setvar('textSous-Segment', $t);
+$sous_segment->setvar('textSous-Segment',$t);
 
 $segment = $odf->setSegment('Segment');
 
-$segment->setvar('textSegment', $t);
+$segment->setvar('textSegment',$t);
 
 // les balises gérées sont : b,i,u,font avec attribut size et/ou color,
 //  toutes peuvent etre imbriqué sauf ul li ou ol li

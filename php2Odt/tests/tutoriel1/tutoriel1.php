@@ -8,16 +8,22 @@
 include_once('../../OdtLib/php2Odt.php');
 
 $t = array(
+    'textSegment1' => array(
+    'var1',
+    'var2',
+    'var3',
+    'var4'),
+    'textSegment2' => array(
     'var1',
     'var2',
     'var3',
     'var4'
-    );
+    ));
 
 
 $odf = new php2Odt('tutoriel1.odt');
 
-$odf->setVar('valeur', 'titre');
+$odf->setVar('titre', 'valeur');
 
 $array = array('image' => array(
         'file' => './sociaNOVA.jpg',
@@ -30,7 +36,7 @@ $odf->setImage($array);
 
 $segment = $odf->setSegment('Segment');
 
-$segment->setvar('textSegment', $t);
+$segment->setvar($t);
 
 $odf->exportAsAttachedFile();
 ?>

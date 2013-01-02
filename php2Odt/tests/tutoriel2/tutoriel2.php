@@ -19,7 +19,7 @@ $t = array('var1',
 
 $odf = new php2Odt('tutoriel2.odt');
 
-$odf->setVar('valeur', 'titre');
+$odf->setVar('titre', 'valeur');
 
 $array = array('image' => array(
         'file' => './sociaNOVA.jpg',

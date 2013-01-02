@@ -102,16 +102,56 @@ class Segment {
         }
     }
 
-    public function setvar($key, $value) {
+    public function setvar($key ,$value = '') {
         $config = array('DELIMITER_LEFT' => '{',
             'DELIMITER_RIGHT' => '}');
+        $test = false;
+        
+        if (is_array($key)) {$value = $key;$key = '';}
+        
+        if (!$key == '') {
+            if (strpos($this->dom->saveXML(), $config['DELIMITER_LEFT'] . $key . $config['DELIMITER_RIGHT']) === false) {
+                throw new php2OdtException("var $key est introuvable dans  document");
+            }
+        }else {
 
-        if (strpos($this->dom->saveXML(), $config['DELIMITER_LEFT'] . $key . $config['DELIMITER_RIGHT']) === false) {
-            throw new php2OdtException("var $key est introuvable dans  document");
+        foreach ($value as $k => $v) {
+            if (is_array($v)) {
+                $test = true;
+                $nbcopy = count($v);
+            if (strpos($this->dom->saveXML(), $config['DELIMITER_LEFT'] . $k . $config['DELIMITER_RIGHT']) === false) {
+                throw new php2OdtException("var $k est introuvable dans  document");
+            }   
+            }  else {
+                $test = false;
+            }
+            
         }
+        }
+        
+        if ($test) {
+            
+            $this->copie($nbcopy);
+            
+            foreach ($value as $k => $val) {
 
-        if (is_array($value)) {
+            foreach ($val as $v) {
+                foreach ($this->dom->getElementsByTagNameNS('urn:oasis:names:tc:opendocument:xmlns:text:1.0', 'p') as $element) {
+                    if ($element->hasChildNodes()) {
+                        foreach ($element->childNodes as $elem) {
+                            $string = $elem->nodeValue;
+                            if (preg_match($config['DELIMITER_LEFT'] . $k . $config['DELIMITER_RIGHT'], $string)) {
+                                $elem->nodeValue = str_replace($config['DELIMITER_LEFT'] . $k . $config['DELIMITER_RIGHT'], $v, $string);
+                                break 2;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        }elseif (is_array($value)) {
             $this->copie(count($value));
+
             foreach ($value as $v) {
                 foreach ($this->dom->getElementsByTagNameNS('urn:oasis:names:tc:opendocument:xmlns:text:1.0', 'p') as $element) {
                     if ($element->hasChildNodes()) {
